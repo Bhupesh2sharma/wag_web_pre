@@ -1,17 +1,19 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { ArrowRight } from "lucide-react"
-import { motion } from "framer-motion"
-import Image from "next/image"
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function HeroSection() {
   const showSuccessModal = () => {
-    const modal = document.createElement('div');
-    modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-    
-    const successBox = document.createElement('div');
-    successBox.className = 'bg-white rounded-lg p-8 max-w-md w-full mx-4 shadow-xl text-center';
+    const modal = document.createElement("div");
+    modal.className =
+      "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50";
+
+    const successBox = document.createElement("div");
+    successBox.className =
+      "bg-white rounded-lg p-8 max-w-md w-full mx-4 shadow-xl text-center";
     successBox.innerHTML = `
       <svg class="w-16 h-16 mx-auto text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
@@ -22,7 +24,7 @@ export default function HeroSection() {
         Close
       </button>
     `;
-    
+
     modal.appendChild(successBox);
     document.body.appendChild(modal);
 
@@ -30,8 +32,8 @@ export default function HeroSection() {
       document.body.removeChild(modal);
     };
 
-    successBox.querySelector('button')?.addEventListener('click', handleClose);
-    modal.addEventListener('click', (e) => {
+    successBox.querySelector("button")?.addEventListener("click", handleClose);
+    modal.addEventListener("click", (e) => {
       if (e.target === modal) handleClose();
     });
   };
@@ -44,33 +46,47 @@ export default function HeroSection() {
   }) => {
     try {
       // Validate form data before sending
-      if (!formData.name || !formData.email || !formData.projectDetails || !formData.budgetRange) {
-        throw new Error('All fields are required');
+      if (
+        !formData.name ||
+        !formData.email ||
+        !formData.projectDetails ||
+        !formData.budgetRange
+      ) {
+        throw new Error("All fields are required");
       }
 
-      const response = await fetch('http://localhost:5000/api/project', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          projectDetails: formData.projectDetails,
-          budgetRange: formData.budgetRange
-        }),
-      });
+      const response = await fetch(
+        "https://wag-server.onrender.com/api/project",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            projectDetails: formData.projectDetails,
+            budgetRange: formData.budgetRange,
+          }),
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to submit project inquiry');
+        throw new Error(
+          errorData.message || "Failed to submit project inquiry"
+        );
       }
 
       // Show styled success message
       showSuccessModal();
     } catch (error) {
-      console.error('Error submitting project inquiry:', error);
-      alert(error instanceof Error ? error.message : 'An error occurred while submitting the form');
+      console.error("Error submitting project inquiry:", error);
+      alert(
+        error instanceof Error
+          ? error.message
+          : "An error occurred while submitting the form"
+      );
     }
   };
 
@@ -91,17 +107,20 @@ export default function HeroSection() {
                   <span className="text-blue-600"> Digital Reality</span>
                 </h1>
                 <p className="text-base md:text-lg text-zinc-600 mb-4 max-w-xl mx-auto lg:mx-0">
-                  We craft innovative digital solutions that help businesses thrive in the modern world. From web
-                  development to process automation, we've got you covered.
+                  We craft innovative digital solutions that help businesses
+                  thrive in the modern world. From web development to process
+                  automation, we've got you covered.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
                   <button
                     onClick={() => {
-                      const modal = document.createElement('div');
-                      modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-                      
-                      const form = document.createElement('div');
-                      form.className = 'bg-white rounded-lg p-4 md:p-8 max-w-[90vw] md:max-w-md w-full mx-2 md:mx-4 shadow-xl';
+                      const modal = document.createElement("div");
+                      modal.className =
+                        "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50";
+
+                      const form = document.createElement("div");
+                      form.className =
+                        "bg-white rounded-lg p-4 md:p-8 max-w-[90vw] md:max-w-md w-full mx-2 md:mx-4 shadow-xl";
                       form.innerHTML = `
                         <h2 class="text-2xl font-bold mb-6 text-zinc-800">Start Your Project</h2>
                         <div class="space-y-4">
@@ -133,24 +152,41 @@ export default function HeroSection() {
                           </div>
                         </div>
                       `;
-                      
+
                       modal.appendChild(form);
                       document.body.appendChild(modal);
 
                       const handleFormSubmit = () => {
                         const formData = {
-                          name: (document.getElementById('name') as HTMLInputElement).value.trim(),
-                          email: (document.getElementById('email') as HTMLInputElement).value.trim(),
-                          projectDetails: (document.getElementById('details') as HTMLTextAreaElement).value.trim(),
-                          budgetRange: (document.getElementById('budget') as HTMLSelectElement).value
+                          name: (
+                            document.getElementById("name") as HTMLInputElement
+                          ).value.trim(),
+                          email: (
+                            document.getElementById("email") as HTMLInputElement
+                          ).value.trim(),
+                          projectDetails: (
+                            document.getElementById(
+                              "details"
+                            ) as HTMLTextAreaElement
+                          ).value.trim(),
+                          budgetRange: (
+                            document.getElementById(
+                              "budget"
+                            ) as HTMLSelectElement
+                          ).value,
                         };
-                        
+
                         // Validate form data
-                        if (!formData.name || !formData.email || !formData.projectDetails || !formData.budgetRange) {
-                          alert('Please fill out all fields');
+                        if (
+                          !formData.name ||
+                          !formData.email ||
+                          !formData.projectDetails ||
+                          !formData.budgetRange
+                        ) {
+                          alert("Please fill out all fields");
                           return;
                         }
-                        
+
                         handleSubmit(formData);
                         document.body.removeChild(modal);
                       };
@@ -159,9 +195,13 @@ export default function HeroSection() {
                         document.body.removeChild(modal);
                       };
 
-                      document.getElementById('submit')?.addEventListener('click', handleFormSubmit);
-                      document.getElementById('cancel')?.addEventListener('click', handleCancel);
-                      modal.addEventListener('click', (e) => {
+                      document
+                        .getElementById("submit")
+                        ?.addEventListener("click", handleFormSubmit);
+                      document
+                        .getElementById("cancel")
+                        ?.addEventListener("click", handleCancel);
+                      modal.addEventListener("click", (e) => {
                         if (e.target === modal) handleCancel();
                       });
                     }}
@@ -184,13 +224,13 @@ export default function HeroSection() {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="h-[250px] md:h-[300px] w-full relative"
               >
-<Image
-  src="./hero.png" // Update this path to your actual image
-  alt="Hero Image"
-  fill
-  className="object-contain mix-blend-multiply"
-  priority
-/>
+                <Image
+                  src="./hero.png" // Update this path to your actual image
+                  alt="Hero Image"
+                  fill
+                  className="object-contain mix-blend-multiply"
+                  priority
+                />
               </motion.div>
             </div>
           </div>
@@ -201,6 +241,5 @@ export default function HeroSection() {
         </section>
       </div>
     </div>
-  )
+  );
 }
-

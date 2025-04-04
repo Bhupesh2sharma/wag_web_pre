@@ -1,63 +1,70 @@
-"use client"
-import Header from "@/components/navbar"
-import Footer from "@/components/footer"
-import { useState } from 'react'
-import { Dialog } from '@headlessui/react'
+"use client";
+import Header from "@/components/navbar";
+import Footer from "@/components/footer";
+import { useState } from "react";
+import { Dialog } from "@headlessui/react";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
-  const [isModalOpen, setIsModalOpen] = useState(false)
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setSubmitStatus('idle')
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
 
     try {
-      const response = await fetch('http://localhost:5000/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject
-        }),
-      })
+      const response = await fetch(
+        "https://wag-server.onrender.com/api/contact",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            subject: formData.subject,
+          }),
+        }
+      );
 
       if (response.ok) {
-        setSubmitStatus('success')
-        setIsModalOpen(true)
+        setSubmitStatus("success");
+        setIsModalOpen(true);
         setFormData({
-          name: '',
-          email: '',
-          subject: '',
-          message: ''
-        })
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+        });
       } else {
-        setSubmitStatus('error')
+        setSubmitStatus("error");
       }
     } catch (error) {
-      setSubmitStatus('error')
+      setSubmitStatus("error");
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
+      [e.target.name]: e.target.value,
+    });
+  };
 
   return (
     <>
@@ -69,28 +76,45 @@ export default function ContactPage() {
           </h1>
           <div className="prose max-w-none">
             <p className="text-lg text-zinc-600 mb-6">
-              We'd love to hear from you! Whether you have a question about our services, need technical support, or want to discuss a potential project, our team is ready to assist you.
+              We'd love to hear from you! Whether you have a question about our
+              services, need technical support, or want to discuss a potential
+              project, our team is ready to assist you.
             </p>
 
             <h2 className="text-2xl font-bold mt-8 mb-4 text-zinc-900">
               Contact Information
             </h2>
             <div className="text-lg text-zinc-600 mb-6 space-y-2">
-              <p><strong>Email:</strong> waglogy.in@gmail.com</p>
-              <p><strong>Phone:</strong> +91 97338 14168</p>
-              <p><strong>Operational Hours:</strong> Mon-Fri, 9:00 AM - 6:00 PM IST</p>
+              <p>
+                <strong>Email:</strong> waglogy.in@gmail.com
+              </p>
+              <p>
+                <strong>Phone:</strong> +91 97338 14168
+              </p>
+              <p>
+                <strong>Operational Hours:</strong> Mon-Fri, 9:00 AM - 6:00 PM
+                IST
+              </p>
             </div>
 
             <h2 className="text-2xl font-bold mt-8 mb-4 text-zinc-900">
               Our Offices
             </h2>
             <div className="text-lg text-zinc-600 mb-6 space-y-2">
-              <p><strong>Registered Office:</strong><br />
-              C/o Iswari Psd Sharma, Kokalya Chandeyn Nr Patuk,<br />
-              Kokalay, Singtam, East Sikkim, Sikkim, 737134</p>
-              <p><strong>Operational Office:</strong><br />
-              Gangtok, Metro Point near Tourism Dept,<br />
-              Govt of Sikkim</p>
+              <p>
+                <strong>Registered Office:</strong>
+                <br />
+                C/o Iswari Psd Sharma, Kokalya Chandeyn Nr Patuk,
+                <br />
+                Kokalay, Singtam, East Sikkim, Sikkim, 737134
+              </p>
+              <p>
+                <strong>Operational Office:</strong>
+                <br />
+                Gangtok, Metro Point near Tourism Dept,
+                <br />
+                Govt of Sikkim
+              </p>
             </div>
 
             <h2 className="text-2xl font-bold mt-8 mb-4 text-zinc-900">
@@ -139,13 +163,15 @@ export default function ContactPage() {
                 disabled={isSubmitting}
                 className="w-full md:w-auto px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 disabled:opacity-50"
               >
-                {isSubmitting ? 'Sending...' : 'Send Message'}
+                {isSubmitting ? "Sending..." : "Send Message"}
               </button>
-              {submitStatus === 'success' && (
+              {submitStatus === "success" && (
                 <p className="text-green-600">Message sent successfully!</p>
               )}
-              {submitStatus === 'error' && (
-                <p className="text-red-600">Failed to send message. Please try again.</p>
+              {submitStatus === "error" && (
+                <p className="text-red-600">
+                  Failed to send message. Please try again.
+                </p>
               )}
             </form>
           </div>
@@ -166,7 +192,8 @@ export default function ContactPage() {
               Thank You!
             </Dialog.Title>
             <Dialog.Description className="text-zinc-600">
-              Thank you for contacting us! We will reach out to you within 24 hours.
+              Thank you for contacting us! We will reach out to you within 24
+              hours.
             </Dialog.Description>
             <button
               onClick={() => setIsModalOpen(false)}
@@ -178,5 +205,5 @@ export default function ContactPage() {
         </div>
       </Dialog>
     </>
-  )
+  );
 }
