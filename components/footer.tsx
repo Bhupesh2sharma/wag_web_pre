@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, Clock } from "lucide-react"
+import { Facebook, Twitter, Instagram, Linkedin, Youtube, Mail, Phone, Clock } from "lucide-react"
 
 export default function Footer() {
   return (
@@ -18,21 +18,22 @@ export default function Footer() {
               Transforming ideas into digital reality with innovative solutions tailored to your business needs.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-zinc-400 hover:text-white transition-colors">
+              <a href="https://www.facebook.com/people/Waglogy/100088445683614/" className="text-zinc-400 hover:text-white transition-colors">
                 <Facebook className="h-5 w-5" />
                 <span className="sr-only">Facebook</span>
               </a>
-              <a href="#" className="text-zinc-400 hover:text-white transition-colors">
-                <Twitter className="h-5 w-5" />
-                <span className="sr-only">Twitter</span>
-              </a>
-              <a href="#" className="text-zinc-400 hover:text-white transition-colors">
+             
+              <a href="https://www.instagram.com/waglogy/" className="text-zinc-400 hover:text-white transition-colors">
                 <Instagram className="h-5 w-5" />
                 <span className="sr-only">Instagram</span>
               </a>
-              <a href="#" className="text-zinc-400 hover:text-white transition-colors">
+              <a href="https://www.linkedin.com/company/waglogy?originalSubdomain=in" className="text-zinc-400 hover:text-white transition-colors">
                 <Linkedin className="h-5 w-5" />
                 <span className="sr-only">LinkedIn</span>
+              </a>
+               <a href="https://www.youtube.com/@Waglogy" className="text-zinc-400 hover:text-white transition-colors">
+                <Youtube className="h-5 w-5" />
+                <span className="sr-only">Youtube</span>
               </a>
             </div>
           </div>
